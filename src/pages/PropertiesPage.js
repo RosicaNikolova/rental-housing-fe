@@ -1,16 +1,20 @@
 import React from "react";
 import PropertiesList from '../components/PropertiesList';
 import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
 
 
 
 function PropertiesPage(){
 
-  const [properties, setProperties] = React.useState(null);
+  //properties - the value, setProperties - function that updates the state and triggers rerendering of the component
+
+  const [properties, setProperties] = useState(null);
 
   const baseURL = "http://localhost:8080/properties";
   
-  React.useEffect(() => {
+  useEffect(() => {
     axios.get(baseURL).then((response) => {
       setProperties(response.data);
     });
@@ -20,7 +24,7 @@ function PropertiesPage(){
 
   return (
     <div>
-      <PropertiesList properties = {properties}/>
+      <PropertiesList properties = {properties.properties}/>
     </div>
   );
 }

@@ -17,12 +17,12 @@ function Navigation() {
     ]
 
     return (
-        <nav className="navbar">
-            <ul>
+        <nav className="navbar navbar-expand-sm bg-primary navbar-dark">
+            <ul className="navbar-nav">
                 {links.map(link => {
                     return (
-                        <li key={link.id}>
-                            <NavLink to={link.path}>
+                        <li className="nav-item" key={link.id}>
+                            <NavLink className="nav-link active" to={link.path}>
                                 {link.text}
                             </NavLink>
                             {/* Add NavLink here */}

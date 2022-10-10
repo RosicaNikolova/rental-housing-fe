@@ -1,0 +1,56 @@
+
+<Component /> - rendering a Component
+
+A Component is a function that returns a JSX element
+
+
+1. Props:
+
+-only for configuration
+-should not be changed
+
+<MyComponent myName="Rositsa"/>
+
+function MyComponent(props){
+
+    return(
+        <h1>{props.myName}<h1>
+    );
+}
+
+
+
+1.1 Props - arrays - map function with keys
+
+
+    -Creating an array of objects with key and a value:
+
+const myArray = ['hello', 'hi'];
+
+const myArrayOfObjects = myArray.map(
+    (arrayElement, i) => ({
+    id: i,
+    title: arrayElement
+})
+);
+
+
+    -Rendering the Component
+<MyComponent myArrayOfObjects={myArrayOfObjects}/>
+
+
+
+    -The Component
+
+function MyComponent(props){
+
+    return(
+        <ul>{props.myArrayOfObjects.map(
+            arrayObject => (<li key={arrayObject.id}>{arrayObject.title}</li>)
+        )}
+        <ul>
+    );
+}
+
+
+

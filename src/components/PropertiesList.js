@@ -1,18 +1,24 @@
 import React from "react"
+import Property from "../components/Property"
 
 
 function PropertiesList(props) {
 
-  // newdata = Array.from(props.data);
+  
   return (
 
-    <ul>
-      
-      <li>{JSON.stringify(props)}</li> 
-      {/* {props.map(([key,value])=> <li key={key}>{value}</li>)} */}
-
+    <section className="property-grid grid">
+      <div className="container">
+        <div className="row">
+        {props.properties.map(
+          (property) =>
+          <Property property={property}/>           
+        )}
+          {/* {JSON.stringify(props.properties)} */}
+        </div>
+      </div>
+    </section>
     
-    </ul>
   )
 }
 
