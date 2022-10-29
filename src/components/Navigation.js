@@ -13,16 +13,37 @@ function Navigation() {
             id: 2,
             path: "/users",
             text: "Users"
+        },
+        {
+            id: 3,
+            path: "/login",
+            text: "Login"
+        },
+        {
+            id: 4,
+            path: "/register",
+            text: "Register"
+        },
+        {
+            id: 5,
+            path: "/createProperty",
+            text: "Create Property"
+        },
+        {
+            id: 6,
+            path: "/Property",
+            text: "Property"
         }
+
     ]
 
     return (
-        <nav className="navbar navbar-expand-sm bg-primary navbar-dark">
-            <ul className="navbar-nav">
+        <nav>
+            <ul>
                 {links.map(link => {
                     return (
-                        <li className="nav-item" key={link.id}>
-                            <NavLink className="nav-link active" to={link.path}>
+                        <li key={link.id}>
+                            <NavLink to={link.path}>
                                 {link.text}
                             </NavLink>
                             {/* Add NavLink here */}
