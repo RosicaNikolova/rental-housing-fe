@@ -33,6 +33,11 @@ function Navigation() {
             id: 6,
             path: "/Property",
             text: "Property"
+        },
+        {
+            id: 7,
+            path: "/RequestsPage",
+            text: "Requests"
         }
 
     ]

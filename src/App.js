@@ -13,6 +13,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import CreatePropertyPage from './pages/CreatePropertyPage';
 import PropertyPage from './pages/PropertyPage/PropertyPage';
+import RequestsPage from './pages/RequestsPage/RequestsPage'
+
+
 
 function App() {
   return (
@@ -29,6 +32,7 @@ function App() {
           <Route path="/register" element={<Register/>} />
           <Route path="/createProperty" element={<CreatePropertyPage/>} />
           <Route path="/Property" element={<PropertyPage/>} />
+          <Route path="/RequestsPage" element={<RequestsPage/>} />
 
         </Routes>
       </Router>
