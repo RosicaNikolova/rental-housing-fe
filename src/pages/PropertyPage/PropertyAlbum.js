@@ -5,7 +5,7 @@ import photo from "./photo-1600585154340-be6161a56a0c.jpg";
 import {StylesPropertyPage} from './StylesPropertyPage.css';
 import PropertyAlbumInfo from './PropertyAlbumInfo';
 
-function PropertyAlbum() {
+function PropertyAlbum(props) {
 
   return (
     <Box bgcolor="blue">
@@ -16,7 +16,7 @@ function PropertyAlbum() {
             </img>
          </Box>
        </Stack>
-       <PropertyAlbumInfo/>
+       <PropertyAlbumInfo property={props.property}/>
        
 
     </Box>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Stack} from "@mui/material";
 import TableCharacteritics from './TableCharacteristics';
 
-function PropertyInfo() {
+function PropertyInfo(props) {
   return (
     <Box bgcolor="red" flex = {2}>
         <Stack spacing={4}>

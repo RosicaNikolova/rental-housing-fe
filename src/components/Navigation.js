@@ -31,7 +31,7 @@ function Navigation() {
         },
         {
             id: 6,
-            path: "/Property",
+            path: "/Property/:id",
             text: "Property"
         },
         {
