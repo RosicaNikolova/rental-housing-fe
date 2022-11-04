@@ -1,0 +1,14 @@
+.imgProperty{
+     width: 100%; 
+    height:45vh;
+    object-fit: cover;
+}
+
+.avatarIcons{
+    margin: auto;
+}
+
+.iconsText{
+    text-align: center;
+    margin: auto;
+}

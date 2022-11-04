@@ -13,11 +13,37 @@ function Navigation() {
             id: 2,
             path: "/users",
             text: "Users"
+        },
+        {
+            id: 3,
+            path: "/login",
+            text: "Login"
+        },
+        {
+            id: 4,
+            path: "/register",
+            text: "Register"
+        },
+        {
+            id: 5,
+            path: "/createProperty",
+            text: "Create Property"
+        },
+        {
+            id: 6,
+            path: "/Property/:id",
+            text: "Property"
+        },
+        {
+            id: 7,
+            path: "/RequestsPage",
+            text: "Requests"
         }
+
     ]
 
     return (
-        <nav className="navbar">
+        <nav>
             <ul>
                 {links.map(link => {
                     return (
