@@ -15,7 +15,6 @@ function CarouselProperties(){
 return(
    
    
-
     <div>
     <SimpleImageSlider
       width={373}
@@ -25,9 +24,7 @@ return(
       showNavs={true}
     />
   </div>
-
-  
-    
+ 
    
 )
 

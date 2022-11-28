@@ -3,7 +3,9 @@ import { Box, Button, Card } from '@mui/material';
 import { Stack } from "@mui/system";
 
 
-function RequestCard(){
+function RequestCard(props){
+
+    //save the request and rerender
 
     return(
         <Card sx={{bgcolor: "skyblue", p: 4}}>
@@ -11,25 +13,25 @@ function RequestCard(){
             <Box bgcolor='orange'>
             <Stack direction="row" justifyContent="space-between">
             <h4>
-                Amsterdam, Pisanostraat 72
+                {props.inquiry.property.city}, {props.inquiry.property.street} {props.inquiry.property.streetNumber}
                 </h4>
-               <div>Publish Date: 01.10.2022</div>
+               <div>Publish Date: {props.inquiry.date}</div>
             </Stack>
               
             </Box>
             <Box  bgcolor='pink'>
-                Homeowner: Rositsa Nikolova
+                Homeowner: {props.inquiry.homeownerFirstName} {props.inquiry.homeownerLastName}
             </Box>
             <Box  bgcolor='orange'>
             <Stack direction="row" spacing={25}>
                 <Box>
-                   PropertyType: Apartment
+                   PropertyType: {props.inquiry.property.propertyType}
                 </Box>
                 <Box>
-                   Rent: 500 euro
+                   Rent: {props.inquiry.property.price} euro
                 </Box>
                 <Box>
-                   Sqaure meters: 100m2
+                   Sqaure meters: {props.inquiry.property.livingSpace} m2
                 </Box>
 
             </Stack>

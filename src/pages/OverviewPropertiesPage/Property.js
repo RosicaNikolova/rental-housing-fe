@@ -7,6 +7,7 @@ import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import LivingIcon from '@mui/icons-material/Living';
 import InfoIcon from '@mui/icons-material/Info'
 import PropertyCard from './PropertyCard.css'
+import { Link } from "react-router-dom";
 
 function Property(props) {
 
@@ -50,8 +51,12 @@ function Property(props) {
  alignItems="center"
  spacing={2}
  p={2}>
-     <Button variant="outlined" startIcon={<InfoIcon />}>
+
+     <Button variant="outlined" startIcon={<InfoIcon /> } href={`/Property/${props.property.id}`}>
        View
+       {/* <Link to={`/Property/${props.property.id}`}>
+        View
+       </Link> */}
      </Button>
      <Button variant="contained" startIcon={<BookmarkAddIcon></BookmarkAddIcon>}>
        Save

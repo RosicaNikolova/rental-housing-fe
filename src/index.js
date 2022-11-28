@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@emotion/react';
 import {Theme} from "./Theme";
+import { BrowserRouter } from 'react-router-dom';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,8 +14,7 @@ root.render(
 
  {/* The custom theme of the app
     <ThemeProvider theme={Theme}> */}
-
-    <App />
+      <App />
     
     {/* </ThemeProvider> */}
   </React.StrictMode>

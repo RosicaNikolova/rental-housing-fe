@@ -12,12 +12,40 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useState } from 'react';
+import AuthenticationService from '../services/AuthenticationService';
 
 
 
 function Login(){
 
 const theme = createTheme();
+
+const [user, setUser] = useState(
+  {
+    email: "",
+    password: ""
+  }
+)
+
+const {email, password} = user;
+  
+const onInputChange = (e)=>{
+  setUser({...user,[e.target.name]:e.target.value})
+  console.log(user)
+}
+
+
+const onSubmit = (e) =>{
+  e.preventDefault();
+  AuthenticationService.login(user)
+    .then(response =>{ 
+      console.log(response);
+    })
+  
+ };
+
+
 
 return(
 
@@ -38,7 +66,7 @@ return(
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={(e) => onSubmit(e)}>
             <TextField
               margin="normal"
               required
@@ -48,6 +76,8 @@ return(
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={(e)=>onInputChange(e)}
             />
             <TextField
               margin="normal"
@@ -58,6 +88,8 @@ return(
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={(e)=>onInputChange(e)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -78,7 +110,8 @@ return(
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+          
+                <Link href= {`/register`} variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

@@ -12,9 +12,54 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { InputLabel, FormControl, Select, MenuItem, FormHelperText } from '@mui/material';
 import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
-
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CreatePropertyPage(){
+
+let navigate=useNavigate();
+
+const [property, setProperty] = useState(
+  {
+    city: "",
+    street: "",
+    streetNumber: "",
+    postCode: "",
+    propertyType: "",
+    livingSpace: "",
+    numberOfRooms: "",
+    numberOfBedrooms: "", 
+    price: "",
+    propertyStatus: "INACTIVE",
+    idHomeowner: 1
+  }
+)
+
+const {city, street, streetNumber, postCode, propertyType, livingSpace, numberOfRooms, numberOfBedrooms, price, propertyStatus} = property;
+
+const onInputChange = (e)=>{
+  setProperty({...property,[e.target.name]:e.target.value})
+  console.log(property)
+}
+
+
+const onSubmit = async(e) =>{
+ e.preventDefault();
+
+ await axios.post("http://localhost:8080/requests", property);
+ navigate("/properties");
+
+}
+
+// const [typeProperty, setTypeProperty] = useState('');
+
+// const handleTypeChange = (event) => {
+//   setTypeProperty(event.target.value);
+//   console.log(typeProperty);
+// };
+
+
 
 return(
 
@@ -35,49 +80,59 @@ return(
         <Typography component="h1" variant="h5">
           Create your listing
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 3 }}>
+        <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={(e) => onSubmit(e)}>
             {/* onSubmit={handleSubmit} */}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12}>
               <TextField
-                autoComplete="given-name"
-                name="firstName"
+                autoComplete="city"
+                name="city"
                 required
                 fullWidth
-                id="firstName"
+                id="city"
                 label="City"
                 autoFocus
+                value={city}
+                onChange={(e)=>onInputChange(e)}
               />
             </Grid>
             <Grid item xs={12} sm={12}>
               <TextField
                 required
                 fullWidth
-                id="lastName"
-                label="Steet"
-                name="lastName"
-                autoComplete="family-name"
+                id="street"
+                label="Street"
+                name="street"
+                autoComplete="street"
+                value={street}
+                onChange={(e)=>onInputChange(e)}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
-                id="email"
+                id="streetN"
                 label="Street Number"
-                name="email"
-                autoComplete="email"
+                name="streetNumber"
+                autoComplete="streetN"
+                value={streetNumber}
+                onChange={(e)=>onInputChange(e)}
+
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
-                name="password"
+                name="postCode"
                 label="Post Code"
-                type="password"
-                id="password"
-                autoComplete="new-password"
+                type="postCode"
+                id="postCode"
+                autoComplete="postCode"
+                value={postCode}
+                onChange={(e)=>onInputChange(e)}
+
               />
             </Grid>
 
@@ -85,17 +140,17 @@ return(
             <FormControl fullWidth>
   <InputLabel id="demo-simple-select-label">Property type</InputLabel>
   <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
+    labelId="propertyType"
+    id="propertyType"
     label="Type of account"
-    required
-  >
-      {/* value={age} */}
-{/* onChange={handleChange} */}
-    <MenuItem value="Renter">House</MenuItem>
-    <MenuItem value="HouseOwner">Apartment</MenuItem>
-    <MenuItem value="HouseOwner">Studio</MenuItem>
-    <MenuItem value="HouseOwner">Room</MenuItem>
+    name="propertyType"
+    value={propertyType}
+    onChange={(e)=>onInputChange(e)}
+    >
+    <MenuItem value="HOUSE">House</MenuItem>
+    <MenuItem value="APARTMENT">Apartment</MenuItem>
+    <MenuItem value="STUDIO">Studio</MenuItem>
+    <MenuItem value="ROOM">Room</MenuItem>
 
   </Select>
 
@@ -106,11 +161,14 @@ return(
               <TextField
                 required
                 fullWidth
-                name="password"
+                name="livingSpace"
                 label="Space"
-                type="password"
-                id="password"
-                autoComplete="new-password"
+                type="space"
+                id="space"
+                autoComplete="space"
+                value={livingSpace}
+                onChange={(e)=>onInputChange(e)}
+
               />
             </Grid>
 
@@ -118,11 +176,14 @@ return(
               <TextField
                 required
                 fullWidth
-                name="password"
+                name="numberOfRooms"
                 label="Number of rooms"
-                type="password"
-                id="password"
-                autoComplete="new-password"
+                type="rooms"
+                id="rooms"
+                autoComplete="rooms"
+                value={numberOfRooms}
+                onChange={(e)=>onInputChange(e)}
+
               />
             </Grid>
 
@@ -130,11 +191,14 @@ return(
               <TextField
                 required
                 fullWidth
-                name="password"
+                name="numberOfBedrooms"
                 label="Number of bedrooms"
-                type="password"
-                id="password"
-                autoComplete="new-password"
+                type="bedrooms"
+                id="bedrooms"
+                autoComplete="bedrooms"
+                value={numberOfBedrooms}
+                onChange={(e)=>onInputChange(e)}
+
               />
             </Grid>
 
@@ -142,11 +206,13 @@ return(
               <TextField
                 required
                 fullWidth
-                name="password"
+                name="price"
                 label="Price"
-                type="password"
-                id="password"
-                autoComplete="new-password"
+                type="price"
+                id="price"
+                autoComplete="price"
+                value={price}
+                onChange={(e)=>onInputChange(e)}
               />
             </Grid>
           </Grid>
