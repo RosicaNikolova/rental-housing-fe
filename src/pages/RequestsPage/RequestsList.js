@@ -23,6 +23,8 @@ function RequestsList(props){
   
     if (!inquiries) return (<div>No requests</div>);
 
+    console.log('child render');
+
     return(
         <div>
 
