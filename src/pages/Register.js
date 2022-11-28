@@ -12,9 +12,39 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { InputLabel, FormControl, Select, MenuItem, FormHelperText } from '@mui/material';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AuthenticationService from '../services/AuthenticationService'
 
 
 function Register(){
+
+  let navigate=useNavigate();
+
+  const [user, setUser] = useState(
+    {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      role: ""
+    }
+  )
+  
+  const {firstName, lastName, email, password, role} = user;
+  
+  const onInputChange = (e)=>{
+    setUser({...user,[e.target.name]:e.target.value})
+    console.log(user)
+  }
+
+
+   const onSubmit = (e) =>{
+    e.preventDefault();
+    AuthenticationService.register(user);
+  
+   }
+  
 
 return(
 
@@ -35,8 +65,7 @@ return(
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 3 }}>
-            {/* onSubmit={handleSubmit} */}
+        <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={(e) => onSubmit(e)}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -47,6 +76,8 @@ return(
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={firstName}
+                onChange={(e)=>onInputChange(e)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -56,7 +87,9 @@ return(
                 id="lastName"
                 label="Last Name"
                 name="lastName"
-                autoComplete="family-name"
+                autoComplete="last-name"
+                value={lastName}
+                onChange={(e)=>onInputChange(e)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -67,6 +100,8 @@ return(
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={(e)=>onInputChange(e)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -78,22 +113,24 @@ return(
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                value={password}
+                onChange={(e)=>onInputChange(e)}
               />
             </Grid>
 
             <Grid item xs={12}>
             <FormControl fullWidth>
-  <InputLabel id="demo-simple-select-label">Type of account</InputLabel>
+  <InputLabel id="role">Profile</InputLabel>
   <Select
-    labelId="demo-simple-select-label"
-    id="demo-simple-select"
-    label="Type of account"
+    labelId="role"
+    id="role"
+    label="Role"
+    name="role"
     required
-  >
-      {/* value={age} */}
-{/* onChange={handleChange} */}
-    <MenuItem value="Renter">Renter</MenuItem>
-    <MenuItem value="HouseOwner">Homeowner</MenuItem>
+    value={role}
+    onChange={(e)=>onInputChange(e)}> 
+    <MenuItem value="RENTER">Renter</MenuItem>
+    <MenuItem value="HOMEOWNER">Homeowner</MenuItem>
   </Select>
 
 </FormControl>
@@ -117,7 +154,8 @@ return(
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+           
+              <Link href={`/login`} variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>

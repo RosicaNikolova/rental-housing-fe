@@ -21,7 +21,7 @@ function PropertiesPage(){
     });
   }, []);
 
-  if (!properties) return null;
+  if (!properties) return (<div>No properties</div>);
 
   return (
 

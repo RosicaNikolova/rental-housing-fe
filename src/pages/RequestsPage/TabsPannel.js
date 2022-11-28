@@ -6,12 +6,15 @@ import RequestsList from './RequestsList';
 
 function TabsPannel(){
 
-  const requestsFilters = ['pending', 'approved', 'disaproved'];
+  const requestsFilters = ['PENDING', 'ACCEPTED', 'REJECTED'];
   const[selectedTab, setSelectedTab] = useState(0);
   const handleTabs =(event, val) =>{
     console.warn(val)
     setSelectedTab(val)
   }
+
+  console.log('parent render');
+
 
   return(
 <div>
@@ -19,11 +22,14 @@ function TabsPannel(){
     <Tab label={requestsFilters[0]}>
     </Tab>
     <Tab label={requestsFilters[1]}>
+
       </Tab>
     <Tab label={requestsFilters[2]}>
+
     </Tab>
     </Tabs>
-<RequestsList requestType= {requestsFilters[selectedTab]}/>
+    <RequestsList requestType= {requestsFilters[selectedTab]}/>
+
 
     {/* <TabPanel value={value} index={0}> Item 1</TabPanel>
     <TabPanel value={value} index={1}> Item 2</TabPanel>
