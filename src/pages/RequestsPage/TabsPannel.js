@@ -22,10 +22,8 @@ function TabsPannel(){
     <Tab label={requestsFilters[0]}>
     </Tab>
     <Tab label={requestsFilters[1]}>
-
       </Tab>
     <Tab label={requestsFilters[2]}>
-
     </Tab>
     </Tabs>
     <RequestsList requestType= {requestsFilters[selectedTab]}/>
