@@ -14,6 +14,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import AuthenticationService from '../services/AuthenticationService';
+import { useForm } from 'react-hook-form';
+import { ThreeKOutlined } from '@mui/icons-material';
 
 
 
@@ -28,23 +30,45 @@ const [user, setUser] = useState(
   }
 )
 
+//const initialValues = {email: "", password:""};
+
+
+const[err, setErr] = useState("");
+ 
 const {email, password} = user;
+
   
 const onInputChange = (e)=>{
   setUser({...user,[e.target.name]:e.target.value})
   console.log(user)
 }
 
+var errorEmail = '';
+
 
 const onSubmit = (e) =>{
   e.preventDefault();
+  console.log(email);
+  if(!checkEmail(email)){
   AuthenticationService.login(user)
     .then(response =>{ 
       console.log(response);
+      setErr("Login Succesffull");
     })
-  
+    .catch(err => setErr("Ivalid credentials"));
+  }
  };
 
+ const checkEmail= (value) =>{
+  if(!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(value)){
+  errorEmail = 'Invalid Email';
+  return true;
+  }
+  else{
+    return false;
+  }
+ }
+ 
 
 
 return(
@@ -67,6 +91,7 @@ return(
             Sign in
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={(e) => onSubmit(e)}>
+          {/* ={(e) => onSubmit(e)} */}
             <TextField
               margin="normal"
               required
@@ -78,6 +103,8 @@ return(
               autoFocus
               value={email}
               onChange={(e)=>onInputChange(e)}
+              error={email?checkEmail(email) : false}
+              helperText={errorEmail}
             />
             <TextField
               margin="normal"
@@ -112,11 +139,12 @@ return(
               <Grid item>
           
                 <Link href= {`/register`} variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>
           </Box>
+          <Box>{err}</Box>
         </Box>
         {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
