@@ -15,9 +15,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import AuthenticationService from '../services/AuthenticationService';
 
-
+import useAuth from '../hooks/useAuth';
 
 function Login(){
+
+const{setAuth} = useAuth();
 
 const theme = createTheme();
 
@@ -28,6 +30,8 @@ const [user, setUser] = useState(
   }
 )
 
+const[err, setErr] = useState("");
+ 
 const {email, password} = user;
   
 const onInputChange = (e)=>{
@@ -35,17 +39,35 @@ const onInputChange = (e)=>{
   console.log(user)
 }
 
+var errorEmail = '';
 
 const onSubmit = (e) =>{
   e.preventDefault();
+  if(!checkEmail(email)){
   AuthenticationService.login(user)
     .then(response =>{ 
-      console.log(response);
+      const accessToken = response.accessToken;
+      const roles = response.roles;
+      console.log("Login: " + "AccessToken: " + accessToken);
+      console.log("Roles: " + roles);
+      setErr("Login Succesffull");
+      //set authentication context
+      setAuth({roles, accessToken})
     })
-  
+    .catch(err => setErr("Ivalid credentials"));
+  }
  };
 
-
+ const checkEmail= (value) =>{
+  if(!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(value)){
+  errorEmail = 'Invalid Email';
+  return true;
+  }
+  else{
+    return false;
+  }
+ }
+ 
 
 return(
 
@@ -67,6 +89,7 @@ return(
             Sign in
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={(e) => onSubmit(e)}>
+          {/* ={(e) => onSubmit(e)} */}
             <TextField
               margin="normal"
               required
@@ -78,6 +101,8 @@ return(
               autoFocus
               value={email}
               onChange={(e)=>onInputChange(e)}
+              error={email?checkEmail(email) : false}
+              helperText={errorEmail}
             />
             <TextField
               margin="normal"
@@ -112,17 +137,17 @@ return(
               <Grid item>
           
                 <Link href= {`/register`} variant="body2">
-                  {"Don't have an account? Sign Up"}
+                  Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>
           </Box>
+          <Box>{err}</Box>
         </Box>
         {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );
-
 
 }
 

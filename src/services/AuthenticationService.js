@@ -19,7 +19,7 @@ const register = (data) =>{
    return api.post(`/register`, data);
 }
 
-const getCurrentUSer = () => {
+const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem('user'));
 
 }
@@ -28,7 +28,7 @@ const AuthenticationService = {
     login,
     logout,
     register,
-    getCurrentUSer
+    getCurrentUser
   };
 
   export default AuthenticationService;
