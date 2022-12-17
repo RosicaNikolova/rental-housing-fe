@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Button, Card } from '@mui/material';
 import { Stack } from "@mui/system";
 
-
 function RequestCard(props){
 
     //save the request and rerender

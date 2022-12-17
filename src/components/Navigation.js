@@ -1,46 +1,39 @@
 import React from "react"
-import {NavLink} from "react-router-dom"
+import { useState } from "react";
+import { useEffect } from "react";
+import {NavLink, useNavigate} from "react-router-dom"
+import AuthenticationService from '../services/AuthenticationService';
+import useAuth from "../hooks/useAuth";
+import setNavigation from "../services/NavigationManager";
 
 function Navigation() {
 
-    const links = [
-        {
-            id: 1,
-            path: "/properties",
-            text: "Rental Properties"
-        },
-        {
-            id: 2,
-            path: "/users",
-            text: "Users"
-        },
-        {
-            id: 3,
-            path: "/login",
-            text: "Login"
-        },
-        {
-            id: 4,
-            path: "/register",
-            text: "Register"
-        },
-        {
-            id: 5,
-            path: "/createProperty",
-            text: "Create Property"
-        },
-        {
-            id: 6,
-            path: "/Property/:id",
-            text: "Property"
-        },
-        {
-            id: 7,
-            path: "/RequestsPage",
-            text: "Requests"
-        }
-
-    ]
+    //const navigate = useNavigate();
+    // const { setAuth, user } = useAuth();
+    // const logout = async () => {
+    //     setAuth(false);
+    //     console.log("logout");
+    //     navigate('/login');
+    // }
+    // const [currentUser, setCurrentUser] = useState(undefined);
+    // useEffect(
+    //     ()=>{
+    //         const user = AuthenticationService.getCurrentUser();
+    //         if(user){
+    //             setCurrentUser(user);
+    //             console.log("render");
+    //         }
+    //     }, 
+    //     []
+    // );
+    var links = [];
+    const {auth} = useAuth();
+    const role = auth.roles;
+    links = setNavigation(role);
+    
+    //get user from local storage
+    //create navigation if user exists: logout if it does not login
+    
 
     return (
         <nav>
@@ -55,6 +48,10 @@ function Navigation() {
                         </li>
                     )
                 })}
+
+                {/* <li>
+                <button type='button' onClick={logout}>Logout</button>
+                </li> */}
             </ul>
         </nav>
     )

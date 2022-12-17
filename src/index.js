@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@emotion/react';
 import {Theme} from "./Theme";
 import { BrowserRouter } from 'react-router-dom';
-
+import { AuthProvider } from './context/AuthProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +14,10 @@ root.render(
 
  {/* The custom theme of the app
     <ThemeProvider theme={Theme}> */}
+
+    <AuthProvider>
       <App />
+    </AuthProvider>
     
     {/* </ThemeProvider> */}
   </React.StrictMode>

@@ -14,12 +14,12 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
 import AuthenticationService from '../services/AuthenticationService';
-import { useForm } from 'react-hook-form';
-import { ThreeKOutlined } from '@mui/icons-material';
 
-
+import useAuth from '../hooks/useAuth';
 
 function Login(){
+
+const{setAuth} = useAuth();
 
 const theme = createTheme();
 
@@ -30,13 +30,9 @@ const [user, setUser] = useState(
   }
 )
 
-//const initialValues = {email: "", password:""};
-
-
 const[err, setErr] = useState("");
  
 const {email, password} = user;
-
   
 const onInputChange = (e)=>{
   setUser({...user,[e.target.name]:e.target.value})
@@ -45,15 +41,18 @@ const onInputChange = (e)=>{
 
 var errorEmail = '';
 
-
 const onSubmit = (e) =>{
   e.preventDefault();
-  console.log(email);
   if(!checkEmail(email)){
   AuthenticationService.login(user)
     .then(response =>{ 
-      console.log(response);
+      const accessToken = response.accessToken;
+      const roles = response.roles;
+      console.log("Login: " + "AccessToken: " + accessToken);
+      console.log("Roles: " + roles);
       setErr("Login Succesffull");
+      //set authentication context
+      setAuth({roles, accessToken})
     })
     .catch(err => setErr("Ivalid credentials"));
   }
@@ -69,7 +68,6 @@ const onSubmit = (e) =>{
   }
  }
  
-
 
 return(
 
@@ -150,7 +148,6 @@ return(
       </Container>
     </ThemeProvider>
   );
-
 
 }
 
