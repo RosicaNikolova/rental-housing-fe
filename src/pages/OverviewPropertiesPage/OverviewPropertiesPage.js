@@ -1,10 +1,8 @@
 import React from "react";
-import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import PropertiesList from "./PropertiesList";
-
-
+import PropertiesService from "../../services/PropertiesService";
 
 function PropertiesPage(){
 
@@ -12,13 +10,19 @@ function PropertiesPage(){
 
   const [properties, setProperties] = useState(null);
 
-  const baseURL = "http://localhost:8080/properties";
   
   useEffect(() => {
-    axios.get(baseURL).then((response) => {
-      setProperties(response.data);
-      console.log(properties.properties);
-    });
+    PropertiesService.getAll()
+        .then((response) => {
+        setProperties(response.data);
+      })
+      // .catch((err) =>{
+      //   if(err.response.status === 401){
+      //     console.log("hello" + err.response.status);
+      //     navigate("/login");
+      //   }
+      // });
+      ;
   }, []);
 
   if (!properties) return (<div>No properties</div>);
@@ -27,11 +31,6 @@ function PropertiesPage(){
 
     <PropertiesList properties={properties.properties}/>
     
-
-    // <div>
-
-    //   <PropertiesList properties = {properties.properties}/>
-    // </div>
   );
 }
 export default PropertiesPage;

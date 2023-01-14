@@ -19,6 +19,7 @@ import AuthenticationService from '../services/AuthenticationService'
 
 function Register(){
 
+  const[err, setErr] = useState("");
   let navigate=useNavigate();
 
   const [user, setUser] = useState(
@@ -41,8 +42,12 @@ function Register(){
 
    const onSubmit = (e) =>{
     e.preventDefault();
-    AuthenticationService.register(user);
-  
+    AuthenticationService.register(user)
+    .then(response =>{ 
+      navigate('/login');
+    })
+    .catch(err => setErr("All fields must be filled in. Please, try again."));
+
    }
   
 
@@ -59,7 +64,7 @@ return(
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -147,7 +152,7 @@ return(
             type="submit"
             fullWidth
             variant="contained"
-            color= 'secondary'
+            color= 'primary'
             sx={{ mt: 3, mb: 2}}
           >
             Sign Up
@@ -161,6 +166,7 @@ return(
             </Grid>
           </Grid>
         </Box>
+        <Box sx={{color: "red"}}>{err}</Box>
       </Box>
     </Container>
 //   </ThemeProvider>

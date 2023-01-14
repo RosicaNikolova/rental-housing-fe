@@ -1,4 +1,3 @@
-import axios from 'axios';
 import api from './http-common';
 
  const login = (user) => {
@@ -19,10 +18,9 @@ const register = (data) =>{
    return api.post(`/register`, data);
 }
 
-const getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem('user'));
-
-}
+ const getCurrentUser = () => {
+     return JSON.parse(localStorage.getItem('user'));
+ }
 
 const AuthenticationService = {
     login,

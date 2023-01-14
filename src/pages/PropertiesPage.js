@@ -15,10 +15,10 @@ function PropertiesPage(){
 
   const url = "http://localhost:8080/properties";
 
-  const loadUsers = async() =>{
-    const result = await axios.get(url)
-    console.log(result.data)
-  };
+  // const loadUsers = async() =>{
+  //   const result = await axios.get(url)
+  //   console.log(result.data)
+  // };
 
   //PropertiesService.getAll();
   

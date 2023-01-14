@@ -3,22 +3,40 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { InputLabel, FormControl, Select, MenuItem, FormHelperText } from '@mui/material';
+import { InputLabel, FormControl, Select, MenuItem } from '@mui/material';
 import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+import { useEffect } from 'react';
+import InquiriesService from '../services/InquiriesService';
 
 function CreatePropertyPage(){
 
-let navigate=useNavigate();
+  let navigate=useNavigate();
+  const {auth} = useAuth(); 
+  
+  const role = auth.roles;
+
+  useEffect(()=>{
+    if(!role){
+      console.log("no role");
+      navigate("/login");
+    }
+    else{
+    if(role[0] !== "HOMEOWNER"){
+      console.log("/wrong role");
+      navigate("/forbidden");
+  }
+}
+  }, []);
+ 
+const [message, setMessage] = useState('');
+
 
 const [property, setProperty] = useState(
   {
@@ -32,7 +50,7 @@ const [property, setProperty] = useState(
     numberOfBedrooms: "", 
     price: "",
     propertyStatus: "INACTIVE",
-    idHomeowner: 1
+    idHomeowner: ""
   }
 )
 
@@ -40,26 +58,29 @@ const {city, street, streetNumber, postCode, propertyType, livingSpace, numberOf
 
 const onInputChange = (e)=>{
   setProperty({...property,[e.target.name]:e.target.value})
-  console.log(property)
 }
 
-
-const onSubmit = async(e) =>{
- e.preventDefault();
-
- await axios.post("http://localhost:8080/requests", property);
- navigate("/properties");
-
-}
-
-// const [typeProperty, setTypeProperty] = useState('');
+const onSubmit = (e) =>{
+  e.preventDefault();
+  console.log(property);
+  InquiriesService.createInquiry(property)
+    .then(response =>{ 
+      console.log(response);
+       if(response.request.status === 201){
+        setMessage("You request has been submitted successfully you can check it on My Requests Page");
+       }
+       else{
+        setMessage("An error occured while creating the property. Please, try again later.")
+       }
+    })
+    .catch(err => setMessage("All fields must be filled in. Please, try again."));
+    ; 
+ };
 
 // const handleTypeChange = (event) => {
 //   setTypeProperty(event.target.value);
 //   console.log(typeProperty);
 // };
-
-
 
 return(
 
@@ -74,7 +95,7 @@ return(
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
           <AddHomeWorkIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -225,18 +246,22 @@ return(
           >
             Create a listing
           </Button>
-          <Grid container justifyContent="flex-end">
+          {/* <Grid container justifyContent="flex-end">
             <Grid item>
               *After submitting this form your request should be approved within 3 working days and be visible for all users.
             </Grid>
-          </Grid>
+          </Grid> */}
         </Box>
+        <Box sx={{color: "primary.main", mb: 10}}>{message}</Box>
+
       </Box>
     </Container>
-//   </ThemeProvider>
 
+    
+//   </ThemeProvider>
 );
 
 }
+
 
 export default CreatePropertyPage;

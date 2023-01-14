@@ -18,7 +18,7 @@ function TabsPannel(){
 
   return(
 <div>
-    <Tabs sx={{bgcolor: "red"}} centered={true} value={selectedTab} onChange={handleTabs}>
+    <Tabs sx={{bgcolor: "white", border: "1px solid", borderColor: "primary.main"}} centered={true} value={selectedTab} onChange={handleTabs}>
     <Tab label={requestsFilters[0]}>
     </Tab>
     <Tab label={requestsFilters[1]}>

@@ -2,20 +2,15 @@ import * as React from 'react';
 import { Box } from "@mui/material";
 import AuthenticationService from "../services/AuthenticationService";
 import useAuth from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 function Logout(){
 
-     console.log("logout");
-     const { setAuth, user } = useAuth();
-     setAuth(false);
-     AuthenticationService.logout();
-     console.log("logout: " + user + "local storage: " + JSON.parse(localStorage.getItem('user')));
-    return(
-        <Box>
-            Logout
-        </Box>
-    )
-
+    let navigate = useNavigate();
+    const { setAuth, user } = useAuth();
+    setAuth(false);
+    AuthenticationService.logout();
+    navigate("/login");
 }
 
 export default Logout;

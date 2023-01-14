@@ -6,7 +6,7 @@ import RightBar from "./RightBar";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import PropertiesService from "../../services/PropertiesService";
 
 
 function PropertyPage(){
@@ -25,19 +25,17 @@ function PropertyPage(){
     });
 
     const {id} = useParams();
-    const url = `http://localhost:8080/properties/${id}`;
-
 
     useEffect(() =>
     {
-        axios.get(url).then((response) => {
+        PropertiesService.get(id)
+        .then((response) => {
             setProperty(response.data);
             console.log(property);
         });
     }, []);
 
     if(property)
-
     return(  
         <Box>
             <PropertyAlbum property={property}/>

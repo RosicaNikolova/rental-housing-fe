@@ -1,10 +1,8 @@
 import React from "react";
-import { Box, Button, Card } from '@mui/material';
+import { Box,Card } from '@mui/material';
 import { Stack } from "@mui/system";
 
-function RequestCard(props){
-
-    //save the request and rerender
+function MyRequestCard(props){
 
     return(
         <Card sx={{bgcolor: "primary.main", p: 4, borderRadius: 0}}>
@@ -22,7 +20,7 @@ function RequestCard(props){
                 Homeowner: {props.inquiry.homeownerFirstName} {props.inquiry.homeownerLastName}
             </Box>
             <Box  bgcolor=''>
-            <Stack direction="row" spacing={25}>
+            <Stack direction="row" spacing={20}>
                 <Box>
                    PropertyType: {props.inquiry.property.propertyType}
                 </Box>
@@ -32,20 +30,16 @@ function RequestCard(props){
                 <Box>
                    Sqaure meters: {props.inquiry.property.livingSpace} m2
                 </Box>
+                <Box>
+                    {props.inquiry.status}
+                </Box>
 
             </Stack>
-            </Box>
-            <Box bgcolor=''>
-            <Stack direction="row" justifyContent="space-evenly" >
-                <Button variant="outlined">Accept</Button>
-                <Button variant="outlined">Reject</Button>
-            </Stack>
-            </Box>
-           
-            </Stack>
+            </Box>        
+           </Stack>
         
         </Card>
        
     )
 }
-export default RequestCard
+export default MyRequestCard;

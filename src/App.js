@@ -1,4 +1,3 @@
-//import logo from './logo.svg';
 import './App.css';
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import UsersPage from './pages/UsersPage';
@@ -15,24 +14,19 @@ import PropertyPage from './pages/PropertyPage/PropertyPage';
 import RequestsPage from './pages/RequestsPage/RequestsPage';
 import OverviewPropertiesPage from './pages/OverviewPropertiesPage/OverviewPropertiesPage';
 import Layout from './components/Layout';
-import RequireAuth from './components/RequireAuth';
-import useAuth from './hooks/useAuth';
 import Logout from './pages/Logout';
 import ChatRoom from './pages/ChatRoom';
+import MyInquiriesPage from './pages/MyRequestsPage/MyInquiriesPage';
+import Forbidden from './pages/Forbidden/Forbidden';
 
 function App() {
 
-  const {auth} = useAuth();
-  console.log("app");
+  console.log("app class");
   return (
     <div className="App">
       
     <Container>
       <Router>
-{/* 
-        {auth?.accessToken ? <Navigation /> : <NoauthorizationNavigation />}
-        {console.log("auth:" + auth.accessToken)} */}
-
         <Navigation/>
         <Routes>
           <Route path='/' element={<Layout />}>
@@ -40,14 +34,14 @@ function App() {
             <Route path="/users" element={<UsersPage/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/register" element={<Register/>} />
-
-            <Route element={<RequireAuth />}>
-              <Route path="/createProperty" element={<CreatePropertyPage/>} />
-            </Route>
+            <Route path="/Logout" element={<Logout/>} />
             <Route path="/Property/:id" element={<PropertyPage/>} />
             <Route path="/RequestsPage" element={<RequestsPage/>} />
-            <Route path="/Logout" element={<Logout/>} />
-            <Route path="/Chatroom" element={<ChatRoom/>} />
+            <Route path="/forbidden" element={<Forbidden/>}/>
+            <Route path="/RequestsPage" element={<RequestsPage/>} />
+            <Route path="/createProperty" element={<CreatePropertyPage/>} />
+            <Route path="/MyInquiries" element={<MyInquiriesPage/>} /> 
+            <Route path="/Chatroom" element={<ChatRoom/>} />          
           </Route>
         </Routes>
       </Router>

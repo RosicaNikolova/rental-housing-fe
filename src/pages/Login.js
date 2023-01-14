@@ -16,8 +16,11 @@ import { useState } from 'react';
 import AuthenticationService from '../services/AuthenticationService';
 
 import useAuth from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 function Login(){
+
+let navigate = useNavigate();
 
 const{setAuth} = useAuth();
 
@@ -53,6 +56,7 @@ const onSubmit = (e) =>{
       setErr("Login Succesffull");
       //set authentication context
       setAuth({roles, accessToken})
+      navigate('/properties');
     })
     .catch(err => setErr("Ivalid credentials"));
   }
@@ -82,7 +86,7 @@ return(
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -142,9 +146,8 @@ return(
               </Grid>
             </Grid>
           </Box>
-          <Box>{err}</Box>
+          <Box sx={{color: "red"}}>{err}</Box>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );
