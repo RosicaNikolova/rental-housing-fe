@@ -1,26 +1,21 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import InquiriesService from "../../services/InquiriesService";
-import RequestCard from "./RequestCard";
+import MyRequestCard from "./MyRequestCard";
 
-function RequestsList(props){
+function MyInquiriesPage(){
 
     let navigate=useNavigate();
-
-    //call backend with parameter
-    //map the cards
-
-    console.log('child render');
+   
     const [inquiries, setInquiries] = useState(null);
 
     useEffect(() => {
-        InquiriesService.getAllInquiries(props.requestType)
-        .then((response) => {    
+        InquiriesService.getInquiriesForUser()
+        .then((response) => {
         setInquiries(response.data.requestDTOList);
-        //console.log('call api');
-       // console.log(response.data);
+        console.log('call api');
       })
       .catch((err) =>{
         if(err.response.status === 401){
@@ -32,23 +27,19 @@ function RequestsList(props){
         }
       });
       ;
-    }, [props]);
+    }, []);
   
-    if (!inquiries) return (<div>No requests</div>);
-
-    console.log('child render');
+    if (!inquiries) return (<div>No Inquiries</div>);
 
     return(
         <div>
 
         {inquiries.map(
            (inquiry, index) =>
-           <RequestCard key ={index} inquiry={inquiry}/>           
+           <MyRequestCard key ={index} inquiry={inquiry}/>           
          )}
-
-
         </div>
     )
 }
-export default RequestsList
+export default MyInquiriesPage;
 

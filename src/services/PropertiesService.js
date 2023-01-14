@@ -1,30 +1,30 @@
-import http from "/http-common";
+import api from './http-common';
 
 const getAll = () =>{
-    return http.get("/properties");
+    return api.get("/properties");
 }
 
 const get = id => {
-    return http.get(`/properties/${id}`)
+    return api.get(`/properties/${id}`)
 }
 
-const create = data => {
-    return http.post("/tutorials", data);
-  };
+// const create = data => {
+//     return api.post("/properties", data, {headers: authHeader()});
+//   };
 
 const update = (id, data) => {
-    return http.put(`/tutorials/${id}`, data);
+    return api.put(`/properties/${id}`, data);
   };
 
   const remove = id => {
-    return http.delete(`/tutorials/${id}`);
+    return api.delete(`/properties/${id}`);
   };
 
 
   const PropertiesService = {
     getAll,
     get,
-    create,
+    //create,
     update,
     remove
   };

@@ -8,7 +8,8 @@ import PropertyAlbumInfo from './PropertyAlbumInfo';
 function PropertyAlbum(props) {
 
   return (
-    <Box bgcolor="blue">
+     <Box> 
+    {/* bgcolor="blue" */}
         <Stack direction="row" justifyContent="space-evenly"> 
        <CarouselComponent />
        <Box flex={1}>

@@ -3,10 +3,7 @@ import React from "react"
 import photo from "./photo-1600585154340-be6161a56a0c.jpg"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 import LivingIcon from '@mui/icons-material/Living';
-import InfoIcon from '@mui/icons-material/Info'
-import PropertyCard from './PropertyCard.css'
 import { Link } from "react-router-dom";
 
 function Property(props) {
@@ -21,7 +18,7 @@ function Property(props) {
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
      <ListItem>
        <ListItemAvatar>
-         <Avatar>
+         <Avatar sx={{bgcolor: 'primary.main' }}>
            <LocationOnIcon />
          </Avatar>
        </ListItemAvatar>
@@ -29,7 +26,7 @@ function Property(props) {
      </ListItem>
      <ListItem>
        <ListItemAvatar>
-         <Avatar>
+         <Avatar sx={{bgcolor: 'primary.main' }}>
            <LivingIcon />
          </Avatar>
        </ListItemAvatar>
@@ -37,7 +34,7 @@ function Property(props) {
      </ListItem>
      <ListItem>
        <ListItemAvatar>
-         <Avatar>
+         <Avatar sx={{bgcolor: 'primary.main' }}>
            <AttachMoneyIcon />
          </Avatar>
        </ListItemAvatar>
@@ -52,15 +49,16 @@ function Property(props) {
  spacing={2}
  p={2}>
 
-     <Button variant="outlined" startIcon={<InfoIcon /> } href={`/Property/${props.property.id}`}>
-       View
-       {/* <Link to={`/Property/${props.property.id}`}>
+     <Button variant="outlined">
+       {/* View */}
+
+       <Link to={`/Property/${props.property.id}`} className="view-link">
         View
-       </Link> */}
-     </Button>
-     <Button variant="contained" startIcon={<BookmarkAddIcon></BookmarkAddIcon>}>
+       </Link>
+     </Button> 
+     {/* <Button variant="contained" startIcon={<BookmarkAddIcon></BookmarkAddIcon>}>
        Save
-     </Button>
+     </Button> */}
      </Stack>
        </Paper> 
        </Grid>
